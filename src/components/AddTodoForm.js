@@ -22,7 +22,6 @@ const AddTodoForm = () => {
     setTitle("");
     setBody("");
     setInCharge("");
-    setDeadline("");
   };
 
   return (

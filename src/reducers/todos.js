@@ -15,6 +15,20 @@ const todoReducers = (state, action) => {
       ];
     case "REMOVE_TODO":
       return state.filter((todo) => todo.title !== action.title);
+    case "EDIT_TODO":
+      return state.map((todo) => {
+        if (todo.title === action.title) {
+          return {
+            ...state,
+            title: action.title,
+            body: action.body,
+            inCharge: action.inCharge,
+            // deadline: action.deadline,
+          };
+        } else {
+          return state;
+        }
+      });
     default:
       return state;
   }
