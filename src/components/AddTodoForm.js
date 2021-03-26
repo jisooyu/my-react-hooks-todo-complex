@@ -59,7 +59,7 @@ const AddTodoForm = () => {
         <label>Deadline:</label>
         <Datepicker
           selected={deadline}
-          onChange={(date) => setDeadline(date)}
+          onChange={(deadline) => setDeadline(deadline)}
         />
         <button className="button">Submit</button>
       </form>

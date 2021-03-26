@@ -10,7 +10,7 @@ const todoReducers = (state, action) => {
           title: action.title,
           body: action.body,
           inCharge: action.inCharge,
-          deadline: format(new Date(), "yyyy-MM-dd"),
+          deadline: format(action.deadline, "yyyy-MM-dd"),
         },
       ];
     case "REMOVE_TODO":
@@ -19,14 +19,14 @@ const todoReducers = (state, action) => {
       return state.map((todo) => {
         if (todo.title === action.title) {
           return {
-            ...state,
+            ...todo,
             title: action.title,
             body: action.body,
             inCharge: action.inCharge,
-            // deadline: action.deadline,
+            deadline: format(action.deadline, 'yyyy-MM-dd'),
           };
         } else {
-          return state;
+          return todo;
         }
       });
     default:

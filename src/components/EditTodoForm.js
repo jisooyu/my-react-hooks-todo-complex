@@ -1,31 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TodosContext from "../context/TodosContext";
 
-const EditTodoForm = () => {
-  const { editTodo } = useContext(TodosContext);
-  // const {currentTitle, currentBody, currentInCharge, currentDeadline} = editTodo
-  const [currentTodo, setCurrentTodo] = useState(editTodo);
-  const [deadline, setDeadline] = useState(new Date());
-  useEffect(() => {
-    setCurrentTodo(currentTodo);
-  }, [currentTodo]);
+const EditTodoForm = ({ currentTodo }) => {
+  const { dispatch, editStatus, setEditStatus } = useContext(TodosContext);
+
+  const [updateTodo, setUpdateTodo] = useState(currentTodo);
+  const [deadline, setDeadline] = useState(new Date(updateTodo.deadline));
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCurrentTodo({ ...currentTodo, [name]: value });
+    setUpdateTodo({ ...updateTodo, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editTodo({
-      title: currentTodo.title,
-      body: currentTodo.body,
-      inCharge: currentTodo.inCharge,
-      deadline,
+    dispatch({
+      type: "EDIT_TODO",
+      title: updateTodo.title,
+      body: updateTodo.body,
+      inCharge: updateTodo.inCharge,
+      deadline: deadline,
     });
+    setEditStatus(!editStatus);
   };
+
   return (
     <div className="content-container">
       <div className="header">
@@ -39,15 +39,15 @@ const EditTodoForm = () => {
           className="text-input"
           type="text"
           name="title"
-          value={currentTodo.title}
+          value={updateTodo.title}
           onChange={(e) => handleInputChange(e)}
         />
         <label>Body:</label>
         <input
           className="text-input"
           type="text"
-          name="editBody"
-          value={currentTodo.body}
+          name="body"
+          value={updateTodo.body}
           onChange={(e) => handleInputChange(e)}
         />
         <label>Person-in-charge:</label>
@@ -55,15 +55,16 @@ const EditTodoForm = () => {
           className="text-input"
           type="text"
           name="inCharge"
-          value={currentTodo.inCharge}
+          value={updateTodo.inCharge}
           onChange={(e) => handleInputChange(e)}
         />
         <label>Deadline:</label>
         <Datepicker
           selected={deadline}
-          onChange={(date) => setDeadline(date)}
+          onChange={(deadline) => setDeadline(deadline)}
         />
         <button className="button">Submit</button>
+        <button className='button' onClick={()=>setEditStatus(true)}>Cancel</button>
       </form>
     </div>
   );
