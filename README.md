@@ -1,3 +1,7 @@
+# Reference
+
+Youtube에 React Auth0 Hooks Add/Remove/Edit 에 연결된 repository. React Hooks Todo-revisited의 후속편임.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
